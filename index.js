@@ -476,8 +476,8 @@ function Windows(instance, callback) {
           function end(error, stdout, stderr) {
             Remove(instance.path,
               function(errorRemove) {
-                if (error) return callback(error);
-                if (errorRemove) return callback(errorRemove);
+                if (error) return callback(error, stdout, stderr);
+                if (errorRemove) return callback(errorRemove, stdout, stderr);
                 callback(undefined, stdout, stderr);
               }
             );
@@ -493,7 +493,7 @@ function Windows(instance, callback) {
                       if (error) return end(error, stdout, stderr);
                       WindowsWaitForStatus(instance,
                         function(error) {
-                          if (error) return end(error);
+                          if (error) return end(error,stdout,stderr);
                           WindowsResult(instance, end);
                         }
                       );
